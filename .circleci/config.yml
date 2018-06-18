@@ -1,12 +1,16 @@
 version: 2
 jobs:
   deploy-gate:
+    docker:
+      - image: ubuntu:17.10
     steps:
       - run:
           name: Deploy gate is a failed job
           command: exit 1
 
   deploy-job:
+    docker:
+      - image: ubuntu:17.10
     steps:
       - run:
           name: Deploy job
