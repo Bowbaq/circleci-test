@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  deploy-gate:
+    <<: *default
+
+    steps:
+      - run:
+          name: Deploy gate is a failed job
+          command: exit 1
+
+  deploy-job:
+    <<: *default
+
+    steps:
+      - run:
+          name: Deploy job
+          command: echo "Deploying some software"
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - deploy-gate:
+          filters:
+            branches:
+              only:
+                - master
+                - staging
+                - production
+      - deploy-job:
+          requires:
+            - deploy-gate
